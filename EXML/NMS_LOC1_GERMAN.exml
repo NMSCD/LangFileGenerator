@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--File created using MBINCompiler version (1.38.3)-->
+<Data template="TkLocalisationTable">
+  <Property name="Table">
+    <Property value="TkLocalisationEntry.xml">
+      <Property name="Id" value="SCAN_NO_TECH" />
+      <Property name="English" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="French" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Italian" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="German" value="VariableSizeString.xml">
+        <Property name="Value" value="Keine Scannertechnologie installiert" />
+      </Property>
+      <Property name="Spanish" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Russian" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Polish" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Dutch" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Portuguese" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="LatinAmericanSpanish" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="BrazilianPortuguese" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="SimplifiedChinese" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="TraditionalChinese" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Korean" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="Japanese" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+      <Property name="USEnglish" value="VariableSizeString.xml">
+        <Property name="Value" value="" />
+      </Property>
+    </Property>
+  </Property>
+</Data>
