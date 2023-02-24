@@ -1,28 +1,28 @@
-import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.36-alpha/deno-dom-wasm.ts";
+import { parse } from "https://deno.land/x/xml@2.1.0/mod.ts"
 
 const exmlDir = './EXML/';
 const files = Deno.readDirSync(exmlDir);
-
 const langData = new Object;
 
 for (const file of files) {
 	if (!file.isFile) continue;
 	const fullFileName = file.name;
 	const fileData = Deno.readTextFileSync(exmlDir + fullFileName);
-	const document = new DOMParser().parseFromString(fileData, 'text/html');
-	const keyElements = document.querySelectorAll('[name="Id"]');
-	for (const keyElement of keyElements) {
-		const langKey = keyElement.getAttribute('value');
-		const langElements = keyElement.parentElement.querySelectorAll('[name="Value"]');
-		langData[langKey] = new Object;
-		console.log(langElements.length)
-		const languages = new Set();
-		for (const element of langElements) {
-			const language = element.parentElement.getAttribute('name');
-			if (languages.has(language)) break;
-			languages.add(language);
-			const langValue = element.getAttribute('value');
-			if (!langValue) continue;
+	const document = parse(fileData);
+	const langElements = document.Data.Property.Property;
+	for (const locEntry of langElements) {
+		const locEntryData = locEntry.Property;
+		let langKey;
+		for (let i = 0; i < locEntryData.length; i++) {
+			const entry = locEntryData[i];
+			if (i == 0) {
+				langKey = entry['@value'];
+				langData[langKey] ??= new Object;
+				continue;
+			}
+			const langValue = entry.Property['@value'];
+			if (langValue == null) continue;
+			const language = entry['@name'];
 			langData[langKey][language] = langValue;
 		}
 	}
