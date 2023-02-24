@@ -24,8 +24,8 @@ for (const file of files) {
 	const langElements = document.Data.Property.Property;
 
 	// loop over TkLocalisationData sections
-	for (const locEntry of langElements) {
-		const locEntryData = locEntry.Property;
+	for (let i = 0; i < langElements.length; i++) {
+		const locEntryData = langElements[i].Property;
 		let langKey;
 
 		// loop over individual lang keys and their assigned values
