@@ -1,10 +1,19 @@
-// import XML parser
-import { XMLParser } from "npm:fast-xml-parser"
+// import packages
+import { XMLParser } from "npm:fast-xml-parser";
+import { decode } from "npm:html-entities";
+import { parse } from "https://deno.land/std@0.178.0/flags/mod.ts";
+
+// get CLI args
+const args = parse(Deno.args);
+const inputArg = args['input-path'];		// --input-path="path/to/file"		default: "./EXML/"
+const outputArg = args['output-path'];		// --output-path="path/to/file"		default: "./output/"
+const fileNameArg = args.filename;			// --filename=Lenni.txt				default: "translation.txt"
+const languageArgs = args['_'].map(language => language.toLowerCase());				// english german
 
 // define paths
-const exmlDir = './EXML/';
-const outputDir = './output/';
-const outputFileName = 'translation.txt';
+const exmlDir = inputArg || './EXML/';
+const outputDir = outputArg || './output/';
+const outputFileName = fileNameArg || 'translation.txt';
 
 // create directories if they don't exist yet
 Deno.mkdirSync(exmlDir, { recursive: true });
@@ -46,7 +55,8 @@ for (const file of files) {
 			const langValue = entry.Property['@value'];
 			if (!langValue) continue;
 			const language = entry['@name'];
-			langData[langKey][language] = langValue.replaceAll('&#xA;', '\n');
+			if (languageArgs.length && !languageArgs.includes(language.toLowerCase())) continue;
+			langData[langKey][language] = decode(langValue, { level: 'xml' });
 		}
 	}
 	console.log(`Processed ${fullFileName}`);
