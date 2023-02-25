@@ -20,7 +20,7 @@ Deno.mkdirSync(exmlDir, { recursive: true });
 Deno.mkdirSync(outputDir, { recursive: true });
 
 // initialise global variables
-const files = Deno.readDirSync(exmlDir);
+const files = Array.from(Deno.readDirSync(exmlDir));
 const langData = new Object;
 
 // set up XML parser
@@ -30,8 +30,11 @@ const options = {
 }
 const parser = new XMLParser(options);
 
+console.log('0% - Starting')
+
 // loop through EXML files
-for (const file of files) {
+for (let i = 0; i < files.length; i++) {
+	const file = files[i];
 	const fullFileName = file.name;
 	const fileType = fullFileName.split('.').at(-1);
 	if (!file.isFile || fileType?.toLowerCase() != 'exml') continue;
@@ -40,14 +43,14 @@ for (const file of files) {
 	const langElements = document.Data.Property.Property;
 
 	// loop over TkLocalisationData sections
-	for (let i = 0; i < langElements.length; i++) {
-		const locEntryData = langElements[i].Property;
+	for (let j = 0; j < langElements.length; j++) {
+		const locEntryData = langElements[j].Property;
 		let langKey;
 
 		// loop over individual lang keys and their assigned values
-		for (let j = 0; j < locEntryData.length; j++) {
-			const entry = locEntryData[j];
-			if (j == 0) {
+		for (let k = 0; k < locEntryData.length; k++) {
+			const entry = locEntryData[k];
+			if (k == 0) {
 				langKey = entry['@value'];
 				langData[langKey] ??= new Object;
 				continue;
@@ -59,7 +62,7 @@ for (const file of files) {
 			langData[langKey][language] = decode(langValue, { level: 'xml' });
 		}
 	}
-	console.log(`Processed ${fullFileName}`);
+	console.log(`${Math.round(((i + 1) / files.length) * 100)}% - Processed ${fullFileName}`);
 }
 const textContent = [];
 for (const key in langData) {
