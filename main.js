@@ -70,5 +70,5 @@ for (const key in langData) {
 	Object.values(langData[key]).forEach(item => textContent.push(item + '\n'));
 	textContent.push('\n')
 }
-Deno.writeTextFileSync(outputDir + outputFileName, textContent.join(''))
+Deno.writeTextFileSync(outputDir + outputFileName, textContent.join('').trim())
 console.log("done!");
