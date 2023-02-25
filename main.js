@@ -20,7 +20,7 @@ Deno.mkdirSync(exmlDir, { recursive: true });
 Deno.mkdirSync(outputDir, { recursive: true });
 
 // initialise global variables
-const files = Array.from(Deno.readDirSync(exmlDir));
+const files = Array.from(Deno.readDirSync(exmlDir)).filter(file => file.isFile && file.name.toLowerCase().endsWith('.exml'));
 const langData = new Object;
 
 // set up XML parser
@@ -30,14 +30,13 @@ const options = {
 }
 const parser = new XMLParser(options);
 
-console.log('Starting')
+if (args.timer) console.time('run');
+console.log('Starting');
 
 // loop through EXML files
 for (let i = 0; i < files.length; i++) {
 	const file = files[i];
 	const fullFileName = file.name;
-	const fileType = fullFileName.split('.').at(-1);
-	if (!file.isFile || fileType?.toLowerCase() != 'exml') continue;
 	const fileData = Deno.readTextFileSync(exmlDir + fullFileName);
 	const document = parser.parse(fileData);
 	const langElements = document.Data.Property.Property;
@@ -66,9 +65,10 @@ for (let i = 0; i < files.length; i++) {
 }
 const textContent = [];
 for (const key in langData) {
-	textContent.push(key + '\n')
+	textContent.push(key + '\n');
 	Object.values(langData[key]).forEach(item => textContent.push(item + '\n'));
-	textContent.push('\n')
+	textContent.push('\n');
 }
-Deno.writeTextFileSync(outputDir + outputFileName, textContent.join('').trim())
+Deno.writeTextFileSync(outputDir + outputFileName, textContent.join('').trim());
 console.log("done!");
+if (args.timer) console.timeEnd('run');
