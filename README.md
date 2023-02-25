@@ -2,7 +2,7 @@
 
 This script can generate combined and simplified language files for No Man's Sky.
 
-Resulting files can be seen in the [language archive](https://github.com/NMSCD/de-en-lang-archive)
+Resulting files can be seen in the [language archive](https://github.com/NMSCD/de-en-lang-archive).
 
 ## How to use
 
