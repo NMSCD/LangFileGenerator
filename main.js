@@ -30,7 +30,7 @@ const options = {
 }
 const parser = new XMLParser(options);
 
-console.log('0% - Starting')
+console.log('Starting')
 
 // loop through EXML files
 for (let i = 0; i < files.length; i++) {
@@ -62,7 +62,7 @@ for (let i = 0; i < files.length; i++) {
 			langData[langKey][language] = decode(langValue, { level: 'xml' });
 		}
 	}
-	console.log(`${Math.round(((i + 1) / files.length) * 100)}% - Processed ${fullFileName}`);
+	console.log(`${i + 1} / ${files.length} (${Math.round(((i + 1) / files.length) * 100)}%) - Processed ${fullFileName}`);
 }
 const textContent = [];
 for (const key in langData) {
