@@ -14,11 +14,14 @@ Sky.
 deno run --allow-read --allow-write .\main.js
 ```
 
-## Command Line Arguments
+### Command Line Arguments
 
-`--input-path`: Specifies the path to the folder with the EXML files. Default: "./EXML/"  
-`--output-path`: Specifies the path to the folder with the resulting combined file. Default: "./output/"  
-`--filename`: Specifies the filename of the resulting combined file. Default: "translation.txt"  
+`--input-path`: Specifies the path to the folder with the EXML files. Default: "./EXML/"
+
+`--output-path`: Specifies the path to the folder with the resulting combined file. Default: "./output/"
+
+`--filename`: Specifies the filename of the resulting combined file. Default: "translation.txt"
+
 Specific languages: Write languages that you want to have listed in your combined file. No prefix required. Case insensitive.  
 Valid values:
 - English
@@ -38,3 +41,10 @@ Valid values:
 - Korean
 - Japanese
 - USEnglish
+
+For example, this would give the English and German translations in all files in the "input directory" folder next to the main.js file. It would then generate the resulting "Lenni.txt" in the "output directory" folder:
+```bat
+deno run --allow-read --allow-write .\main.js --input-path="./input directory/" --output-path="./output directory/" --filename="Lenni.txt" english german
+```
+
+Note that you must have the necessary language files decompiled in order to use this script. You can't get a German translation without the German files.
