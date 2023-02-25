@@ -4,7 +4,7 @@ import { XMLParser } from "npm:fast-xml-parser"
 // define paths
 const exmlDir = './EXML/';
 const outputDir = './output/';
-const outputFileName = 'Lenni.txt';
+const outputFileName = 'translation.txt';
 
 // create directories if they don't exist yet
 Deno.mkdirSync(exmlDir, { recursive: true });
