@@ -23,6 +23,8 @@ deno run --allow-read --allow-write .\main.js
 
 `--filename`: Specifies the filename of the resulting combined file. Default: "translation.txt"
 
+`--timer`: Tells you how much time the script execution took when finished.
+
 Specific languages: Write languages that you want to have listed in your combined file. No prefix required. Case insensitive.  
 Valid values:
 - English
