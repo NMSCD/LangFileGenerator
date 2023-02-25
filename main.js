@@ -30,7 +30,7 @@ const options = {
 }
 const parser = new XMLParser(options);
 
-if (args.timer) console.time('run');
+if (args.timer) console.time('Total time');
 console.log('Starting');
 
 // loop through EXML files
@@ -71,4 +71,4 @@ for (const key in langData) {
 }
 Deno.writeTextFileSync(outputDir + outputFileName, textContent.join('').trim());
 console.log("done!");
-if (args.timer) console.timeEnd('run');
+if (args.timer) console.timeEnd('Total time');
