@@ -9,6 +9,7 @@ const inputArg = args['input-path'];		// --input-path="path/to/file"		default: "
 const outputArg = args['output-path'];		// --output-path="path/to/file"		default: "./output/"
 const fileNameArg = args.filename;			// --filename=Lenni.txt				default: "translation.txt"
 const languageArgs = args['_'].map(language => language.toLowerCase());				// english german
+const timer = args.timer;
 
 // define paths
 const exmlDir = inputArg || './EXML/';
@@ -30,7 +31,7 @@ const options = {
 }
 const parser = new XMLParser(options);
 
-if (args.timer) console.time('Total time');
+if (timer) console.time('Total time');
 console.log('Starting');
 
 // loop through EXML files
@@ -71,4 +72,4 @@ for (const key in langData) {
 }
 Deno.writeTextFileSync(outputDir + outputFileName, textContent.join('').trim());
 console.log("done!");
-if (args.timer) console.timeEnd('Total time');
+if (timer) console.timeEnd('Total time');
