@@ -5,24 +5,58 @@ import { parse } from "https://deno.land/std@0.178.0/flags/mod.ts";
 
 // get CLI args
 const args = parse(Deno.args);
-const inputArg = args['input-path'];		// --input-path="path/to/file"		default: "./EXML/"
-const outputArg = args['output-path'];		// --output-path="path/to/file"		default: "./output/"
-const fileNameArg = args.filename;			// --filename=Lenni.txt				default: "translation.txt"
-const languageArgs = args['_'].map(language => language.toLowerCase());				// english german
-const timer = args.timer;
-
-// define paths
-const exmlDir = inputArg || './EXML/';
-const outputDir = outputArg || './output/';
-const outputFileName = fileNameArg || 'translation.txt';
+const exmlDir: string = args['input-path'] || './EXML/';			// --input-path="path/to/file"		default: "./EXML/"
+const outputDir: string = args['output-path'] || './output/';		// --output-path="path/to/file"		default: "./output/"
+const outputFileName: string = args.filename || 'translation.txt';	// --filename=Lenni.txt				default: "translation.txt"
+const languageArgs = args['_'].map(language => language.toString().toLowerCase());		// english german -- this needs the .toString() method because TS would complain
+const timer: boolean = args.timer;
 
 // create directories if they don't exist yet
 Deno.mkdirSync(exmlDir, { recursive: true });
 Deno.mkdirSync(outputDir, { recursive: true });
 
+// set up interfaces
+interface Xml {
+	'@version': string;
+	'@encoding': string;
+}
+
+interface LangObj {
+	"@name": string;
+	"@value": string;
+	Property?: {
+		"@name": string;
+		"@value": string;
+	};
+}
+
+interface TkLocalisationEntry {
+	Property: Array<LangObj>;
+	"@value": string;
+}
+
+interface Data {
+	Property: {
+		Property: TkLocalisationEntry[];
+		"@name": string;
+	}
+	"@template": string;
+}
+
+interface RootObject {
+	'?xml': Xml;
+	Data: Data;
+}
+
+interface LangData {
+	[key: string]: Partial<{
+		[key: string]: string;
+	}>;
+}
+
 // initialise global variables
 const files = Array.from(Deno.readDirSync(exmlDir)).filter(file => file.isFile && file.name.toLowerCase().endsWith('.exml'));
-const langData = new Object;
+const langData: LangData = {};
 
 // set up XML parser
 const options = {
@@ -39,27 +73,27 @@ for (let i = 0; i < files.length; i++) {
 	const file = files[i];
 	const fullFileName = file.name;
 	const fileData = Deno.readTextFileSync(exmlDir + fullFileName);
-	const document = parser.parse(fileData);
+	const document: RootObject = parser.parse(fileData);
 	const langElements = document.Data.Property.Property;
 
 	// loop over TkLocalisationData sections
-	for (let j = 0; j < langElements.length; j++) {
-		const locEntryData = langElements[j].Property;
-		let langKey;
+	for (const locEntry of langElements) {
+		const locEntryData = locEntry.Property;
+		let langKey: string;
 
 		// loop over individual lang keys and their assigned values
 		for (let k = 0; k < locEntryData.length; k++) {
 			const entry = locEntryData[k];
 			if (k == 0) {
 				langKey = entry['@value'];
-				langData[langKey] ??= new Object;
+				langData[langKey] ??= {};
 				continue;
 			}
-			const langValue = entry.Property['@value'];
+			const langValue = entry.Property!['@value'];
 			if (!langValue) continue;
 			const language = entry['@name'];
 			if (languageArgs.length && !languageArgs.includes(language.toLowerCase())) continue;
-			langData[langKey][language] = decode(langValue, { level: 'xml' });
+			langData[langKey!][language] = decode(langValue, { level: 'xml' });
 		}
 	}
 	console.log(`${i + 1} / ${files.length} (${Math.round(((i + 1) / files.length) * 100)}%) - Processed ${fullFileName}`);

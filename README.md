@@ -12,7 +12,7 @@ Resulting files can be seen in the [language archive](https://github.com/NMSCD/d
 3. Execute the script in the directory by using this command:
 
 ```bat
-deno run --allow-read --allow-write .\main.js
+deno task run
 ```
 
 ### Command Line Arguments
@@ -47,7 +47,7 @@ Valid values:
 
 For example, this would give the English and German translations in all files in the "input directory" folder next to the main.js file. It would then generate the resulting "Lenni.txt" in the "output directory" folder:
 ```bat
-deno run --allow-read --allow-write .\main.js --input-path="./input directory/" --output-path="./output directory/" --filename="Lenni.txt" english german
+deno task run --input-path="./input directory/" --output-path="./output directory/" --filename="Lenni.txt" english german
 ```
 
 Note that you must have the necessary language files decompiled in order to use this script. You can't get a German translation without the German files.
