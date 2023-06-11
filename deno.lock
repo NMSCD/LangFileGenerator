@@ -1,0 +1,29 @@
+{
+  "version": "2",
+  "remote": {
+    "https://deno.land/std@0.178.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
+    "https://deno.land/std@0.178.0/flags/mod.ts": "d1cdefa18472ef69858a17df5cf7c98445ed27ac10e1460183081303b0ebc270"
+  },
+  "npm": {
+    "specifiers": {
+      "fast-xml-parser": "fast-xml-parser@4.1.2",
+      "html-entities": "html-entities@2.3.3"
+    },
+    "packages": {
+      "fast-xml-parser@4.1.2": {
+        "integrity": "sha512-CDYeykkle1LiA/uqQyNwYpFbyF6Axec6YapmpUP+/RHWIoR1zKjocdvNaTsxCxZzQ6v9MLXaSYm9Qq0thv0DHg==",
+        "dependencies": {
+          "strnum": "strnum@1.0.5"
+        }
+      },
+      "html-entities@2.3.3": {
+        "integrity": "sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==",
+        "dependencies": {}
+      },
+      "strnum@1.0.5": {
+        "integrity": "sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==",
+        "dependencies": {}
+      }
+    }
+  }
+}
