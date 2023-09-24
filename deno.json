@@ -2,5 +2,8 @@
 	"tasks": {
 		"run": "deno run --allow-read --allow-write main.ts",
 		"build": "deno compile --allow-read --allow-write main.ts"
+	},
+	"imports": {
+		"flags": "https://deno.land/std@0.202.0/flags/mod.ts"
 	}
 }

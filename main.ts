@@ -1,7 +1,7 @@
 // import packages
 import { XMLParser } from "npm:fast-xml-parser";
 import { decode } from "npm:html-entities";
-import { parse } from "https://deno.land/std@0.178.0/flags/mod.ts";
+import { parse } from "flags";
 
 // get CLI args
 const args = parse(Deno.args);
@@ -89,14 +89,15 @@ for (let i = 0; i < files.length; i++) {
 				langData[langKey] ??= {};
 				continue;
 			}
-			const langValue = entry.Property!['@value'];
+			if (!entry?.Property) continue;
+			const langValue = entry.Property['@value'];
 			if (!langValue) continue;
 			const language = entry['@name'];
 			if (languageArgs.length && !languageArgs.includes(language.toLowerCase())) continue;
-			langData[langKey!][language] = decode(langValue, { level: 'xml' });
+			langData[langKey!][language] = decode(langValue, { level: 'xml' });	// NoSonar this is necessary, for some reason TS complains here :shrug:
 		}
 	}
-	console.log(`${i + 1} / ${files.length} (${Math.round(((i + 1) / files.length) * 100)}%) - Processed ${fullFileName}`);
+	console.log(`${i + 1} / ${files.length} (${Math.round(((i + 1) / files.length) * 100)}%) - Processed ${fullFileName}`);	// NoSonar this is just percentage calculation
 }
 const textContent = [];
 for (const key in langData) {
