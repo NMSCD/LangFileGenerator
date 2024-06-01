@@ -23,13 +23,18 @@ interface Xml {
   "@encoding": string;
 }
 
-interface LangObj {
+// newer MBINCompiler versions (> 4.70) do not have the additional "Property"
+interface LocEntry {
   "@name": string;
   "@value": string;
+  Property?: {
+    "@name": string;
+    "@value": string;
+  };
 }
 
 interface TkLocalisationEntry {
-  Property: Array<LangObj>;
+  Property: Array<LocEntry>;
   "@value": string;
 }
 
@@ -89,7 +94,9 @@ for (let i = 0; i < files.length; i++) {
       const language = entry["@name"];
       if (languageArgs.length && !languageArgs.includes(language.toLowerCase()))
         continue;
-      const langValue = entry["@value"];
+      const langValue = entry.Property
+        ? entry.Property["@value"]
+        : entry["@value"];
       if (!langValue) continue;
       langData[langKey][language] = decode(langValue, { level: "xml" });
     }
