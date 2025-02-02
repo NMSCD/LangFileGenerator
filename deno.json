@@ -4,6 +4,6 @@
 		"build": "deno compile --allow-read --allow-write main.ts"
 	},
 	"imports": {
-		"flags": "https://deno.land/std@0.224.0/flags/mod.ts"
+		"@std/cli": "jsr:@std/cli@^1.0.12"
 	}
 }
