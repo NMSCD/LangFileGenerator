@@ -5,7 +5,7 @@ import { parse } from "flags";
 
 // get CLI args
 const args = parse(Deno.args);
-const exmlDir: string = args["input-path"] || "./EXML/"; // --input-path="path/to/file"		default: "./EXML/"
+const mxmlDir: string = args["input-path"] || "./MXML/"; // --input-path="path/to/file"		default: "./MXML/"
 const outputDir: string = args["output-path"] || "./output/"; // --output-path="path/to/file"		default: "./output/"
 const outputFileName: string = args.filename || "translation.txt"; // --filename=Lenni.txt				default: "translation.txt"
 const languageArgs = args["_"].map((language) =>
@@ -14,7 +14,7 @@ const languageArgs = args["_"].map((language) =>
 const timer: boolean = args.timer;
 
 // create directories if they don't exist yet
-Deno.mkdirSync(exmlDir, { recursive: true });
+Deno.mkdirSync(mxmlDir, { recursive: true });
 Deno.mkdirSync(outputDir, { recursive: true });
 
 // set up interfaces
@@ -58,8 +58,8 @@ interface LangData {
 }
 
 // initialise global variables
-const files = Array.from(Deno.readDirSync(exmlDir)).filter(
-  (file) => file.isFile && file.name.toLowerCase().endsWith(".exml")
+const files = Array.from(Deno.readDirSync(mxmlDir)).filter(
+  (file) => file.isFile && file.name.toLowerCase().endsWith(".mxml")
 );
 const langData: LangData = {};
 
@@ -73,11 +73,11 @@ const parser = new XMLParser(options);
 if (timer) console.time("Total time");
 console.log("Starting");
 
-// loop through EXML files
+// loop through MXML files
 for (let i = 0; i < files.length; i++) {
   const file = files[i];
   const fullFileName = file.name;
-  const fileData = Deno.readTextFileSync(exmlDir + fullFileName);
+  const fileData = Deno.readTextFileSync(mxmlDir + fullFileName);
   const document: RootObject = parser.parse(fileData);
   const langElements = document.Data.Property.Property;
 

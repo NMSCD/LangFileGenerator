@@ -5,14 +5,14 @@ This script can generate combined and simplified language files for No Man's Sky
 Resulting files can be seen in the [language archive](https://github.com/NMSCD/de-en-lang-archive).
 
 ## How to use
-1. Put your EXML files into the "EXML" folder (create it if it doesn't exist yet)
+1. Put your MXML files into the "MXML" folder (create it if it doesn't exist yet)
 2. Double click the exe file
 
 ### Command Line Arguments
 
 You can optionally run it from the command line and specify additional arguments:
 
-`--input-path`: Specifies the path to the folder with the EXML files. Default: "./EXML/"
+`--input-path`: Specifies the path to the folder with the MXML files. Default: "./MXML/"
 
 `--output-path`: Specifies the path to the folder with the resulting combined file. Default: "./output/"
 
