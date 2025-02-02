@@ -1,10 +1,10 @@
 // import packages
 import { XMLParser } from "npm:fast-xml-parser";
 import { decode } from "npm:html-entities";
-import { parseArgs as parse } from "@std/cli/parse-args";
+import { parseArgs } from "@std/cli/parse-args";
 
 // get CLI args
-const args = parse(Deno.args);
+const args = parseArgs(Deno.args);
 const mxmlDir: string = args["input-path"] || "./MXML/"; // --input-path="path/to/file"		default: "./MXML/"
 const outputDir: string = args["output-path"] || "./output/"; // --output-path="path/to/file"		default: "./output/"
 const outputFileName: string = args.filename || "translation.txt"; // --filename=Lenni.txt				default: "translation.txt"
