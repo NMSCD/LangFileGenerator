@@ -2,6 +2,7 @@
 import { XMLParser } from "npm:fast-xml-parser";
 import { decode } from "npm:html-entities";
 import { parseArgs as parse } from "@std/cli/parse-args";
+
 // get CLI args
 const args = parse(Deno.args);
 const mxmlDir: string = args["input-path"] || "./MXML/"; // --input-path="path/to/file"		default: "./MXML/"
